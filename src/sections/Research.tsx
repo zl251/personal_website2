@@ -6,6 +6,7 @@ import type { Language } from '@/types/language';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// 扩展 Paper 接口，增加可选的 images 字段
 interface Paper {
   title: string;
   authors: string;
@@ -15,6 +16,7 @@ interface Paper {
   link?: string;
   github?: string;
   type: 'paper';
+  images?: { src: string; caption: string; captionEn: string }[];
 }
 
 interface Patent {
@@ -23,110 +25,75 @@ interface Patent {
   number: string;
   date: string;
   abstract: string;
-  link: string;
+  link?: string;
   type: 'patent';
+  images?: { src: string; caption: string; captionEn: string }[];
 }
 
 type ResearchItem = Paper | Patent;
 
-const papers: Paper[] = [
-  // {
-  //   title: 'UD-SfPNet: An Underwater Descattering Shape-from-Polarization Network for 3D Normal Reconstruction',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Feng Huang, Xianyu Wu, Yating Chen',
-  //   journal: 'Information Fusion (一区Top，IF=15.7，With Editor）',
-  //   year: '2026',
-  //   abstract:
-  //     'UD-SfPNet jointly performs polarization-based descattering and surface normal estimation in a unified framework with color embedding and detail enhancement. It achieves state-of-the-art accuracy (15.12° mean error) on MuS-Polar3D dataset.',
-  //   // link: 'https://example.com/paper1',
-  //   github: 'https://github.com/WangPuyun/UD-SfPNet.git',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'MuS-Polar3D: A Benchmark Dataset for Computational Polarimetric 3D Imaging under Multi-Scattering Conditions',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
-  //   journal: 'IEEE Transactions on Image Processing (一区Top，IF=13.7，Under Review）',
-  //   year: '2025',
-  //   abstract:
-  //     'MuS-Polar3D is a benchmark for polarization-based underwater 3D imaging, featuring 42 objects under controlled scattering and multi-view conditions with precise ground truth. It enables fair evaluation across tasks, achieving 15.49° best mean angular error.',
-  //   link: 'https://arxiv.org/abs/2512.21513',
-  //   github: 'https://github.com/WangPuyun/MuS-Polar3D.git',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'A Structured Learning Framework for Underwater Polarization-Based 3D Reconstruction',
-  //   authors: 'Puyun Wang, Kaimin Yu, Huayang He, Xianyu Wu',
-  //   journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
-  //   year: '2025',
-  //   abstract:
-  //     'This paper propose an end-to-end framework that jointly performs underwater polarization descattering and SfP normal estimation by coupling restoration with geometry learning. On MuS-Polar3D, it achieves 15.12° mean angular error and robust performance under varying scattering.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'Structure-Aware Consistency Priors for Shape from Polarization in Complex Media',
-  //   authors: 'Kaimin Yu, Puyun Wang, Huayang He, Xianyu Wu',
-  //   journal: 'International Conference on Machine Learning (CCF-A，投稿中）',
-  //   year: '2025',
-  //   abstract:
-  //     'This paper propose IceSfP, a dual-branch network that integrates structure-aware polarization priors with raw features via cross-modal attention for surface normal estimation in ice. It achieves 16.01° MAE, outperforming existing methods.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
-  // {
-  //   title: 'Recent Advances in Polarization-Based 3D Imaging: From Physics Models to Neural Implicit Representations',
-  //   authors: 'Kaimin Yu, Puyun Wang, Fei Dong, Xu Li, Xianyu Wu, FengHuang',
-  //   journal: 'Computational Visual Media (二区，IF=7.5，Major Revision）',
-  //   year: '2025',
-  //   abstract:
-  //     'This survey reviews polarization-based 3D imaging, focusing on data-driven and neural implicit representation methods alongside physics-based approaches. It summarizes datasets, metrics, challenges, and future directions including generalization, system design, and deployment.',
-  //   // link: 'https://example.com/paper1',
-  //   type: 'paper',
-  // },
-  {
-    title: 'A cross-modality feature fusion framework for low-light image enhancement',
-    authors: 'Puyun Wang, Xianyu Wu, Jiacai Lin, FengHuang',
-    journal: 'Applied Optics and Photonics China 2025 (AOPC2025), 2025, Beijing, China',
-    year: '2025',
-    abstract:
-      'We propose a fusion-driven framework that enhances low-light images by integrating RGB and LWIR modalities through feature decomposition and GAN-based fusion. The method improves brightness, contrast, and detail, outperforming existing approaches across SSIM, PSNR, and LPIPS.',
-    link: 'https://doi.org/10.1117/12.3078191',
-    type: 'paper',
+// 论文数据（中英文共用，期刊和摘要随语言变化）
+const papers: Omit<Paper, 'journal' | 'abstract'> & {
+  journal: Record<Language, string>;
+  abstract: Record<Language, string>;
+} = {
+  title: 'Joint Geometric Partition and Efficient Matching Cross-Modal Registration Framework',
+  authors: 'ChongEn Huang, XiuXun Xie, YiTao Cao, ZhiXiang Xue, Ying Shen',
+  journal: {
+    zh: '二区在投……',
+    en: 'Under Review (JCR Q2)',
   },
-  // {
-  //   title: '仿生视觉信息处理在机器人导航中的应用',
-  //   authors: '王朴匀, 等',
-  //   journal: '机器人',
-  //   year: '2024',
-  //   abstract:
-  //     '受生物视觉系统启发，设计了一种仿生视觉信息处理框架，应用于机器人自主导航任务。该方法能够有效处理复杂环境下的视觉信息，提高导航精度。',
-  //   link: 'https://example.com/paper2',
-  //   type: 'paper',
-  // },
-];
+  year: '2025',
+  abstract: {
+    zh: '提出几何分区与高效匹配联合的跨模态配准框架（JGP-EM），通过场景平面分割与特征匹配，解决复杂深度场景下全局单应性失效问题，配准精度达90.15%。',
+    en: 'We propose a Joint Geometric Partition and Efficient Matching (JGP-EM) cross-modal registration framework. Through scene plane segmentation and feature matching, it addresses the failure of global homography in complex depth scenes, achieving a registration accuracy of 90.15%.',
+  },
+  link: 'https://doi.org/10.1117/12.3078191',
+  type: 'paper' as const,
+  images: [
+    {
+      src: './images/lunwenjishuluxian.png',
+      caption: '几何分区与高效匹配联合的跨模态配准框架整体结构',
+      captionEn: 'Overall architecture of the JGP-EM cross-modal registration framework',
+    },
+    {
+      src: './images/lunwentu.png',
+      caption: '不同配准方法在道路场景下的可视化对比结果',
+      captionEn: 'Visual comparison of different registration methods on road scenes',
+    },
+  ],
+};
 
+// 专利数据（中英文分别定义，保持内容一致）
 const patents: Record<Language, Patent[]> = {
   zh: [
     {
-      title: '一种应用于平稳爬楼的送餐小车',
-      inventors: '朱兆聚,王朴匀,黄海涛,曹泰源,陈栋,苏晨烨',
-      number: 'CN116923583A',
-      date: '2023',
+      title: '一种低空机载双光谱图像分区配准方法',
+      inventors: '沈英，黄崇恩，黄峰，陈丽琼，裘兆炳',
+      number: 'CN121437579A',
+      date: '2025',
       abstract:
-        '本发明公开一种平稳爬楼送餐小车，包括主车架、两侧麦克纳姆轮及由升降机构驱动的前后分节车体，可承载大重量餐盒，实现跨楼层稳定送餐。',
-      link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
+        '本发明公开一种低空机载双光谱图像分区配准方法，提出双光谱图像分区配准方法，利用深度估计与法向量生成掩膜，通过区域合并与角点插值计算单应性矩阵，实现高精度配准。',
       type: 'patent',
+      images: [
+        { src: './images/zhuanli1.png', caption: '发明专利申请', captionEn: 'Invention patent application' },
+        { src: './images/zhuanli2.png', caption: '专利材料', captionEn: 'Patent documentation' },
+      ],
     },
   ],
   en: [
     {
-      title: 'A Stair-Climbing Food Delivery Cart for Stable Transport',
-      inventors: 'Zhaoju Zhu, Puyun Wang, Haitao Huang, Taiyuan Cao, Dong Chen, Chenye Su',
-      number: 'CN116923583A',
-      date: '2023',
+      title: 'A Partition-Based Registration Method for Low-Altitude Airborne Dual-Spectral Images',
+      inventors: 'Ying Shen, ChongEn Huang, Feng Huang, Liqiong Chen, Zhaobing Qiu',
+      number: 'CN121437579A',
+      date: '2025',
       abstract:
-        'This invention discloses a stable stair-climbing food delivery cart with a main chassis, dual mecanum wheels, and a segmented body driven by a lifting mechanism, enabling heavy-load meal-box transport across floors.',
-      link: 'https://pss-system.cponline.cnipa.gov.cn/documents/detail?prevPageTit=changgui',
+        'The present invention discloses a partition-based registration method for low-altitude airborne dual-spectral images. It employs depth estimation and normal vector generation to create masks, and computes homography matrices through region merging and corner interpolation to achieve high-precision registration.',
       type: 'patent',
+      images: [
+        { src: './images/zhuanli1.png', caption: '发明专利申请', captionEn: 'Invention patent application' },
+        { src: './images/zhuanli2.png', caption: '专利材料', captionEn: 'Patent documentation' },
+      ],
     },
   ],
 };
@@ -143,6 +110,13 @@ export default function Research({ language }: ResearchProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<'papers' | 'patents'>('papers');
   const isEnglish = language === 'en';
+
+  // 构建论文数据（根据语言动态设置 journal 和 abstract）
+  const papersWithLang: Paper = {
+    ...papers,
+    journal: papers.journal[language],
+    abstract: papers.abstract[language],
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -183,7 +157,7 @@ export default function Research({ language }: ResearchProps) {
     return () => ctx.revert();
   }, []);
 
-  const currentItems: ResearchItem[] = activeTab === 'papers' ? papers : patents[language];
+  const currentItems: ResearchItem[] = activeTab === 'papers' ? [papersWithLang] : patents[language];
 
   return (
     <section
@@ -193,8 +167,6 @@ export default function Research({ language }: ResearchProps) {
     >
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark-bg via-dark-card to-dark-bg" />
-
-      {/* Decorative elements */}
       <div className="absolute top-1/3 right-0 w-96 h-96 rounded-full bg-neon-cyan/5 blur-3xl" />
       <div className="absolute bottom-1/3 left-0 w-80 h-80 rounded-full bg-neon-purple/5 blur-3xl" />
 
@@ -276,6 +248,26 @@ export default function Research({ language }: ResearchProps) {
                   <p className="text-white/60 text-sm leading-relaxed line-clamp-3">
                     {item.abstract}
                   </p>
+
+                  {/* Images（如果有） */}
+                  {item.images && item.images.length > 0 && (
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                      {item.images.map((img, imgIdx) => (
+                        <div key={imgIdx} className="rounded-xl overflow-hidden bg-dark-bg/50 border border-white/5">
+                          <div className="aspect-[16/10] overflow-hidden">
+                            <img
+                              src={img.src}
+                              alt={isEnglish ? img.captionEn : img.caption}
+                              className="w-full h-full object-contain hover:scale-105 transition-transform duration-500"
+                            />
+                          </div>
+                          <p className="text-white/50 text-xs text-center py-1.5">
+                            {isEnglish ? img.captionEn : img.caption}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Actions */}
@@ -311,13 +303,13 @@ export default function Research({ language }: ResearchProps) {
         {/* Stats */}
         <div className="mt-12 flex justify-center gap-8">
           <div className="text-center">
-            <p className="text-3xl font-bold text-gradient">{papers.length}</p>
-            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Papers' : '学术论文'}</p>
+            <p className="text-3xl font-bold text-gradient">1</p>
+            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Paper' : '学术论文'}</p>
           </div>
           <div className="w-px bg-white/10" />
           <div className="text-center">
-            <p className="text-3xl font-bold text-gradient">{patents[language].length}</p>
-            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Patents' : '专利'}</p>
+            <p className="text-3xl font-bold text-gradient">1</p>
+            <p className="text-white/50 text-sm mt-1">{isEnglish ? 'Patent' : '专利'}</p>
           </div>
         </div>
       </div>

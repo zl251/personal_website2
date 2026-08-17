@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { GraduationCap, Award, Users, BookOpen, Mail, Phone } from 'lucide-react'; // 1. 引入 Mail 和 Phone
+import { GraduationCap, Award, Users, BookOpen, Mail, Phone } from 'lucide-react';
 import { withBase } from "@/utils/asset";
 import type { Language } from '@/types/language';
 
@@ -34,10 +34,10 @@ const education: Record<
       icon: GraduationCap,
     },
     {
-      period: '2020 - 2024', // 2. 修正了这里的时间
+      period: '2020 - 2024',
       school: 'Fuzhou University (Project 211), B.Eng.',
       major: 'Vehicle Engineering',
-      details: 'Admission to graduate students at our university based on a total score of 5/60 in the postgraduate entrance examination',
+      details: 'Ranked 5th out of 60 in the postgraduate entrance examination',
       icon: GraduationCap,
     },
   ],
@@ -61,11 +61,10 @@ const researchAreas: Record<Language, string[]> = {
     'Low-altitude drone remote sensing',
     'Visible-infrared small target detection',
     'Multimodal image registration',
-    'Combination of artificial intelligence and multi-source data perception',
+    'AI and Multi-source Data Perception',
   ],
 };
 
-// 3. 新增联系方式数据
 const contactInfo: Record<Language, { email: string; phone: string }> = {
   zh: {
     email: '745325683@qq.com',
@@ -73,7 +72,7 @@ const contactInfo: Record<Language, { email: string; phone: string }> = {
   },
   en: {
     email: '745325683@qq.com',
-    phone: '+86 13950611039', // 英文环境加国际区号，方便海外访客
+    phone: '+86 13950611039',
   },
 };
 
@@ -89,7 +88,7 @@ export default function About({ language }: AboutProps) {
   const educationItems = education[language];
   const membershipItems = memberships[language];
   const areaItems = researchAreas[language];
-  const contact = contactInfo[language]; // 获取当前语言的联系方式
+  const contact = contactInfo[language];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -182,7 +181,7 @@ export default function About({ language }: AboutProps) {
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
                   {/* 个人照片 */}
                   <img 
-                    src={withBase("./images/personal_photo3.png")}
+                    src={withBase("./images/personal_photo3.jpg")}
                     alt={isEnglish ? 'ChongEn Huang' : '黄崇恩'}
                     className="w-full h-full object-cover"
                   />
@@ -214,7 +213,7 @@ export default function About({ language }: AboutProps) {
                       <p className="text-neon-cyan text-sm mt-1">{edu.details}</p>
                     )}
                     {/* CET-6 Badge - only for undergraduate */}
-                    {index === 1 && ( // 这里从 0 改为 1，对应本科（第二个条目）
+                    {index === 1 && (
                       <div className="mt-3 flex items-center gap-2">
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neon-green/10 border border-neon-green/30 text-neon-green text-xs font-medium">
                           <Award className="w-3.5 h-3.5" />
@@ -264,14 +263,14 @@ export default function About({ language }: AboutProps) {
               </div>
             </div>
 
-            {/* 4. 新增：联系方式 Contact */}
+            {/* Contact */}
             <div className="about-item">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-                <Mail className="w-5 h-5 text-orange-400" /> {/* 用橙色区分 */}
+                <Mail className="w-5 h-5 text-orange-400" />
                 {isEnglish ? 'Contact' : '联系方式'}
               </h3>
               <div className="glass rounded-xl p-4 space-y-3 hover:border-orange-400/30 transition-colors">
-                {/* 邮箱 */}
+                {/* Email */}
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-white/50" />
                   <a 
@@ -281,7 +280,7 @@ export default function About({ language }: AboutProps) {
                     {contact.email}
                   </a>
                 </div>
-                {/* 电话 */}
+                {/* Phone */}
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-white/50" />
                   <span className="text-white/80">{contact.phone}</span>

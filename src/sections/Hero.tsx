@@ -96,15 +96,15 @@ export default function Hero({ language }: HeroProps) {
 
   const copy = isEnglish
     ? {
-        subtitle: 'AI Topics / Computer Vision Researcher',
-        description: 'Exploring the boundaries of intelligent vision and robotics',
+        subtitle: 'AI Research / Computer Vision Researcher',
+        description: 'Exploring the boundaries of intelligent vision and drone technology',
         wechatTitle: 'Contact via WeChat',
         wechatDesc: 'Scan the QR code below to add me on WeChat',
         wechatHint: 'Save screenshot and scan it in WeChat',
       }
     : {
-        subtitle: '人工智能课题 / 计算机视觉研究者',
-        description: '探索智能视觉与机器人技术的边界',
+        subtitle: '人工智能课题 / 机器视觉研究者',
+        description: '探索智能视觉与无人机技术的边界',
         wechatTitle: '微信联系我',
         wechatDesc: '扫描下方二维码添加微信',
         wechatHint: '截图保存，打开微信扫一扫',
@@ -149,7 +149,7 @@ export default function Hero({ language }: HeroProps) {
             transition: 'transform 0.3s ease-out',
           }}
         >
-          <span className="text-gradient">{isEnglish ? 'Puyun Wang' : '黄崇恩'}</span>
+          <span className="text-gradient">{isEnglish ? 'ChongEn Huang' : '黄崇恩'}</span>
         </h1>
 
         <div className="overflow-hidden">
@@ -171,9 +171,9 @@ export default function Hero({ language }: HeroProps) {
         {/* Social Links */}
         <div className="mt-10 flex justify-center gap-6">
           {[
-            { name: 'GitHub', icon: 'github', href: 'https://github.com/WangPuyun' },
+            { name: 'GitHub', icon: 'github', href: 'https://github.com/zl251' },
             { name: 'WeChat', icon: 'wechat', href: '#' },
-            { name: 'Email', icon: 'email', href: 'mailto:745325683@qq.com' },
+            { name: 'Email', icon: 'email', href: 'https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=745325683@qq.com' },
           ].map((social) => {
             const isWechat = social.icon === 'wechat';
             const Tag = isWechat ? 'button' : 'a';

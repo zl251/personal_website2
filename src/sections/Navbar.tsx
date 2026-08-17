@@ -11,11 +11,11 @@ const navLinks: Record<Language, Array<{ name: string; href: string }>> = {
     { name: '相关技能', href: '#skills' },
   ],
   en: [
-    { name: 'About', href: '#about' },
-    { name: 'Awards', href: '#awards' },
-    { name: 'Research', href: '#research' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Skills', href: '#skills' },
+    { name: 'About Me', href: '#about' },
+    { name: 'Experience Hightlights', href: '#awards' },
+    { name: 'Research Outputs', href: '#research' },
+    { name: 'Projects Experience', href: '#projects' },
+    { name: 'Related Skills', href: '#skills' },
   ],
 };
 
@@ -72,7 +72,7 @@ export default function Navbar({ language, onToggleLanguage }: NavbarProps) {
               }}
               className="text-xl font-bold text-white hover:text-neon-green transition-colors"
             >
-              <span className="text-gradient">{isEnglish ? 'Puyun Wang' : '黄崇恩'}</span>
+              <span className="text-gradient">{isEnglish ? 'ChongEn Huang' : '黄崇恩'}</span>
             </a>
 
             {/* Desktop Navigation */}
