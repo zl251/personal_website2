@@ -26,7 +26,7 @@ const projects = [
     technologies: ['深度学习', '深度学习', 'TCP通信'],
     icon: Target,
     color: 'from-neon-green to-emerald-500',
-    images: [withBase("./images/fw.gif")],
+    images: [withBase("./images/fw_4.gif")],
   },
   {
     title: '福建省低空经济保障体系发展战略研究',
