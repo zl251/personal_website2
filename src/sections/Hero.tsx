@@ -173,7 +173,7 @@ export default function Hero({ language }: HeroProps) {
           {[
             { name: 'GitHub', icon: 'github', href: 'https://github.com/zl251' },
             { name: 'WeChat', icon: 'wechat', href: '#' },
-            { name: 'Email', icon: 'email', href: 'https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=745325683@qq.com' },
+            { name: 'Email', icon: 'email', href: 'https://mail.163.com/js6/main.jsp?func=write&to=你的163邮箱@163.com' },
           ].map((social) => {
             const isWechat = social.icon === 'wechat';
             const Tag = isWechat ? 'button' : 'a';

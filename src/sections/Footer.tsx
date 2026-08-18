@@ -29,7 +29,7 @@ const socialLinks = [
   },
   {
     name: 'Email',
-    href: 'mailto:745325683@qq.com',
+    href: 'https://mail.163.com/js6/main.jsp?func=write&to=13950611039@163.com',
     icon: (
       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -84,7 +84,7 @@ export default function Footer({ language }: FooterProps) {
               className="whitespace-nowrap text-[20vw] font-bold text-white leading-none"
               style={{ transform: `translateX(-${i * 10}%)` }}
             >
-              {isEnglish ? 'Puyun Wang Puyun Wang Puyun Wang' : '黄崇恩 黄崇恩 黄崇恩'}
+              {isEnglish ? 'ChongEn Huang ChongEn Huang ChongEn Huang' : '黄崇恩 黄崇恩 黄崇恩'}
             </div>
           ))}
         </div>
@@ -119,11 +119,13 @@ export default function Footer({ language }: FooterProps) {
               {/* Contact info - 新增电话 */}
               <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
                 <a
-                  href="mailto:745325683@qq.com"
+                  href="https://mail.163.com/js6/main.jsp?func=write&to=13950611039@163.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 px-5 py-2.5 glass rounded-full hover:border-neon-green/50 transition-colors"
                 >
                   <Mail className="w-4 h-4 text-neon-green" />
-                  <span className="text-white/80 text-sm">745325683@qq.com</span>
+                  <span className="text-white/80 text-sm">13950611039@163.com</span>
                 </a>
                 <a
                   href="tel:+8613950611039"
@@ -187,7 +189,7 @@ export default function Footer({ language }: FooterProps) {
                 <div className="flex items-center gap-4 bg-white/5 backdrop-blur-sm rounded-2xl px-5 py-3 border border-white/5">
                   <div className="bg-white p-2 rounded-xl shadow-lg shadow-neon-green/5">
                     <QRCodeSVG
-                      value="https://your-public-url.com" // ⚠️ 请替换为你的实际公网地址
+                      value="https://zl251.github.io/personal_website2/"
                       size={72}
                       bgColor="#ffffff"
                       fgColor="#1a1a2e"
@@ -230,7 +232,7 @@ export default function Footer({ language }: FooterProps) {
           <div className="border-t border-white/10 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/40 text-sm">
-                © 2025 {isEnglish ? 'Puyun Wang' : '黄崇恩'}. All rights reserved.
+                © 2025 {isEnglish ? 'ChongEn Huang' : '黄崇恩'}. All rights reserved.
               </p>
               <p className="text-white/40 text-sm flex items-center gap-1">
                 Made with <Heart className="w-4 h-4 text-red-500 fill-red-500" /> in Fuzhou

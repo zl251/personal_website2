@@ -67,11 +67,11 @@ const researchAreas: Record<Language, string[]> = {
 
 const contactInfo: Record<Language, { email: string; phone: string }> = {
   zh: {
-    email: '745325683@qq.com',
+    email: '13950611039@163.com',
     phone: '13950611039',
   },
   en: {
-    email: '745325683@qq.com',
+    email: '13950611039@163.com',
     phone: '+86 13950611039',
   },
 };
